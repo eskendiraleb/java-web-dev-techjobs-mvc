@@ -20,7 +20,7 @@ public class SearchController {
     public String search(Model model) {
 
         model.addAttribute("columns", ListController.columnChoices);
-        model.addAttribute("searchType", "all");
+
 
         return "search";
     }
@@ -31,17 +31,16 @@ public class SearchController {
     public String displaySearchResults( Model model,@RequestParam String searchType,@RequestParam String searchTerm) {
 
         ArrayList<Job> jobs;
-        if (searchTerm.equals("All")){
+        if (searchTerm.toLowerCase().equals("All") ||searchTerm.toLowerCase().equals("") ){
             jobs= JobData.findAll();
 
         } else {
            jobs = JobData.findByColumnAndValue(searchType,searchTerm);
 
-
        }
         model.addAttribute("columns", ListController.columnChoices);
         model.addAttribute("jobs", jobs);
-        model.addAttribute("searchType", searchType);
+
         return "search";
     }
 

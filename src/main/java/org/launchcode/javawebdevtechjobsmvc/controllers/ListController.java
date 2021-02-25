@@ -38,8 +38,10 @@ public class ListController {
 
     @RequestMapping(value = "")
     public String list(Model model) {
+
         model.addAttribute("columns", columnChoices);
         model.addAttribute("tableChoices", tableChoices);
+
         model.addAttribute("employers", JobData.getAllEmployers());
         model.addAttribute("locations", JobData.getAllLocations());
         model.addAttribute("positions", JobData.getAllPositionTypes());
@@ -52,9 +54,11 @@ public class ListController {
 
     public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
         ArrayList<Job> jobs;
+
         if (column.toLowerCase().equals("all")){
             jobs = JobData.findAll();
             model.addAttribute("title", "All Jobs");
+
         } else {
             jobs = JobData.findByColumnAndValue(column, value);
             model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
