@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head">
 </head>
+<title>this is search form</title>
 <body>
 
 <div th:replace="fragments :: page-header"></div>
@@ -37,10 +38,7 @@
     <hr />
 
     <!-- TODO #4 - Loop over the search results to display all job fields. -->
-    <ul>
-        <li th:each="job : ${jobs}">
-
-        </li>
+        <table th:replace="list-jobs :: table-elements"></table>
     </ul>
 
 </div>

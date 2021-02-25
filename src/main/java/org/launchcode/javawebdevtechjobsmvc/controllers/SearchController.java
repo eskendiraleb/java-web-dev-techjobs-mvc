@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
-import static org.launchcode.javawebdevtechjobsmvc.controllers.ListController.columnChoices;
 
 /**
  * Created by LaunchCode
@@ -19,30 +18,31 @@ public class SearchController {
 
     @RequestMapping(value = "")
     public String search(Model model) {
-        model.addAttribute("columns", columnChoices);
+
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("searchType", "all");
 
         return "search";
     }
 
     // TODO #3 - Create a handler to process a search request and render the updated search view.
 
-    @PostMapping("search")
+    @RequestMapping(value = "results")
+    public String displaySearchResults( Model model,@RequestParam String searchType,@RequestParam String searchTerm) {
 
-        public String displaySearchResults(Model model,@RequestParam String value,@RequestParam String column, @RequestParam String searchType,
-                                           @RequestParam String searchTerm) {
-            ArrayList<Job> jobs;
-            if (searchType.equals("All") && (searchTerm.toLowerCase().equals("all")||searchTerm.toLowerCase().equals(""))){
-                jobs = JobData.findAll();
-                model.addAttribute("find", "All Jobs");
-            } else {
-                jobs = JobData.findByColumnAndValue(column, value);
-                model.addAttribute("find", "Jobs with " + columnChoices.get(column) + ": " + value);
+        ArrayList<Job> jobs;
+        if (searchTerm.equals("All")){
+            jobs= JobData.findAll();
 
-            }
-            model.addAttribute("jobs", jobs);
+        } else {
+           jobs = JobData.findByColumnAndValue(searchType,searchTerm);
 
-            return "redirect:";
-        }
 
+       }
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("jobs", jobs);
+        model.addAttribute("searchType", searchType);
+        return "search";
+    }
 
 }
