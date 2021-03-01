@@ -4,10 +4,11 @@
 
 td, th {
     padding: 10px;
+
 }
 
 th {
-    text-align: center;
+    text-align: left;
 }
 
 td {
@@ -15,7 +16,8 @@ td {
 }
 
 tr:nth-child(odd) {
-    background-color: #e4e4e4;
+    background-color: lightblue;
+     align: center;
 }
 
 .centeredTable {
@@ -40,7 +42,7 @@ table.job-listing td:last-child {
 label {
     margin-right: 15px;
 }
-
 .centered {
     text-align: center;
 }
+
